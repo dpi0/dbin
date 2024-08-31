@@ -75,6 +75,7 @@ func main() {
 	})
 
 	e.Static("/css", "web/css")
+	e.Static("/icons", "web/icons")
 	e.Static("/", "web")
 
 	log.Info().Msg("Server starting on port 1323")
