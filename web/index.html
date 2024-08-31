@@ -9,12 +9,21 @@
   <body>
     <textarea
       id="editor"
-      placeholder="start typing and hit 󰘳 + 󰌑 to save!"
+      placeholder="start typing and hit &#8984; + &#8629; to save!"
       aria-label="Text editor"
     ></textarea>
+    <button id="submit-btn" title="&#8984; + &#8629;">&#8617;</button>
     <script>
       const editor = document.getElementById("editor");
+      const submitBtn = document.getElementById("submit-btn");
       editor.focus();
+      editor.addEventListener("input", () => {
+        if (editor.value.trim() !== "") {
+          submitBtn.style.display = "block";
+        } else {
+          submitBtn.style.display = "none";
+        }
+      });
       editor.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.key === "Enter") {
           const text = editor.value.trim();
@@ -29,6 +38,20 @@
                 window.location.href = `/${data.id}`;
               });
           }
+        }
+      });
+      submitBtn.addEventListener("click", () => {
+        const text = editor.value.trim();
+        if (text) {
+          fetch("/paste", {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: text,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              window.location.href = `/${data.id}`;
+            });
         }
       });
     </script>

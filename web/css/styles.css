@@ -10,7 +10,7 @@
   :root {
     --bg: #121212;
     --text: #fff;
-    --accent: #05ff7e;
+    --accent: #059fff;
     --placeholder-text: var(--accent);
   }
 }
@@ -48,4 +48,21 @@ textarea::placeholder {
 ::selection {
   background-color: var(--accent);
   color: var(--bg);
+}
+
+#submit-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: white;
+  cursor: pointer;
+
+  height: 3rem;
+  width: 3rem;
+
+  font-size: 2rem;
+  display: none;
 }
