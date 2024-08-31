@@ -1,0 +1,10 @@
+services:
+  dbin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dbin
+    ports:
+      - "2000:1323"
+    volumes:
+      - ./pastes:/app/pastes
