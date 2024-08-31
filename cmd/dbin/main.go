@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -73,42 +71,10 @@ func main() {
 			return c.NoContent(404)
 		}
 		log.Info().Msgf("Serving paste /%s", id)
-
-		accept := c.Request().Header.Get("Accept")
-		if strings.Contains(accept, "text/html") {
-			// Serve as HTML
-			pasteContent, err := os.ReadFile(pastePath)
-			if err != nil {
-				log.Error().Err(err).Msg("Error reading paste content")
-				return err
-			}
-			html := `
-			<!DOCTYPE html>
-			<html>
-			<head>
-				<title>dbin - %s</title>
-				<link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/css/styles.css" />
-			</head>
-			<body>
-				<pre>%s</pre>
-			</body>
-			</html>
-		`
-			return c.HTML(200, fmt.Sprintf(html, id, string(pasteContent)))
-		} else {
-			// Serve as raw text
-			pasteContent, err := os.ReadFile(pastePath)
-			if err != nil {
-				log.Error().Err(err).Msg("Error reading paste content")
-				return err
-			}
-			return c.Blob(200, "text/plain", pasteContent)
-		}
+		return c.File(pastePath)
 	})
 
 	e.Static("/css", "web/css")
-	e.Static("/icons", "web/icons")
 	e.Static("/", "web")
 
 	log.Info().Msg("Server starting on port 1323")
