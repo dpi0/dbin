@@ -5,6 +5,7 @@ go 1.23.0
 require (
 	github.com/google/uuid v1.6.0
 	github.com/labstack/echo/v4 v4.12.0
+	github.com/rs/zerolog v1.33.0
 )
 
 require (
