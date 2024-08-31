@@ -25,7 +25,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		id := uuid.NewString()[:5] // Generate a 5-character ID
+		id := uuid.NewString()[:6] // Generate a 5-character ID
 		err = savePaste(id, text)
 		if err != nil {
 			return err
